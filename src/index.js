@@ -9,12 +9,13 @@ import "leaflet/dist/leaflet.css";
  */
 var map = L.map('map').setView([25.505, 10.09],1.7); 
 
-var mapLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
-	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
+var mapLayer = L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {
+	maxZoom: 20,
+	attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
 }).addTo(map);
 
 const planeIcon = L.divIcon({
-    html: '<i class="fa-solid fa-plane"></i>',
+    html: '<span class="planeIcon"><i class="fa-solid fa-plane"></i></span>',
     iconSize: [0.5, 0.5]
 });
 
@@ -42,7 +43,7 @@ function retrieveListOfPlanes(){
     fetch('https://opensky-network.org/api/states/all')
     .then((response) => response.json())
     .then((ListOfFlights) =>{
-        console.log(ListOfFlights);
+        removePlanesOnMap();
         setPlaneOnMap(ListOfFlights);
     })
     //incase there's an error retrieving list of planes
@@ -70,7 +71,7 @@ function setPlaneOnMap(ListOfFlights){
             
         actualLoopCount++;
     }
-    console.log(ListOfDisplayedPlanes[0])
+ 
     document.getElementById('numberOfPlanes').innerHTML = ensureNumberOfPlanes;
 }   
 //To avoid double adding planes we have to remove before updating
@@ -83,9 +84,8 @@ function removePlanesOnMap(){
 // So that every 25 seconds, we update plane positions on the map
 function keepUpdatingPlanes(){
     planeUpdateInterval = setInterval(() => {
-        removePlanesOnMap();
         retrieveListOfPlanes();        
-    }, 25000);
+    }, 20000);
 }
 
 // There will be instances where i would want to pause the plane counter

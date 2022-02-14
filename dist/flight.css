@@ -3,14 +3,18 @@
 .containerGrid {
     display: grid;
     grid-template-columns: 75% 20%;
-    grid-template-rows: auto;
-    column-gap: 10px;
-    row-gap:15px;
-    grid-template-areas: "mapside statside";
+    grid-template-rows: 10% 80% 10%;
+    column-gap: 25px;
+    grid-template-areas: 
+    ". ."
+    "mapside statside"
+    ". .";
+    
 }
 
 body {
-    font-family: sans-serif ;
+    font-family: monospace ;
+    background: linear-gradient(to right, darkblue, blue, lightblue);
 }
 
 .mapSide {
@@ -18,10 +22,22 @@ body {
     
 }
 
-.statSide {
+.statsSide {
+    border-style: solid;
+    border-width: 2px;
+    padding-left: 20px;
+    border-color: white;
+    border-radius: 25px;
     grid-area: statside;
+    
 }
 
 .TheMap{
+    opacity: 0.8;
+    border-radius: 25px;
     height: 75vh;
+}
+
+.planeIcon{
+    color:lime
 }
