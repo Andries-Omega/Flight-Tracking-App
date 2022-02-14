@@ -1,0 +1,27 @@
+
+
+.containerGrid {
+    display: grid;
+    grid-template-columns: 75% 20%;
+    grid-template-rows: auto;
+    column-gap: 10px;
+    row-gap:15px;
+    grid-template-areas: "mapside statside";
+}
+
+body {
+    font-family: sans-serif ;
+}
+
+.mapSide {
+    grid-area: mapside;
+    
+}
+
+.statSide {
+    grid-area: statside;
+}
+
+.TheMap{
+    height: 75vh;
+}
