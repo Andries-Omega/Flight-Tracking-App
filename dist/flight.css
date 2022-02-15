@@ -45,6 +45,8 @@ body {
 
 .planeIcon:hover{
     color:yellow; 
+    cursor: pointer;
+    font-size: 30px;
     transition: 0.2s;
 }
 

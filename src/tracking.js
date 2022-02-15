@@ -1,5 +1,6 @@
 let overalElements = document.querySelectorAll(".overallPlanes");
 let specificElements = document.querySelectorAll(".specificPlane");
+let planeIcon = document.querySelectorAll(".planeIcon");
 
 export function changeToSpecific(planeData){
     overalElements.forEach(overalElement =>{
@@ -7,6 +8,9 @@ export function changeToSpecific(planeData){
     });
     specificElements.forEach(specificElement =>{
         specificElement.style.display = "block";
+    });
+    planeIcon.forEach(planeIcon =>{
+        planeIcon.style.color = "yellow";
     });
     document.getElementById('flightPicked').innerHTML = planeData[1];
     console.log(planeData);
@@ -21,3 +25,4 @@ export function changeToOverall(){
     })
 
 }
+

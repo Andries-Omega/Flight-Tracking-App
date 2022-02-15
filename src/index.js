@@ -4,7 +4,7 @@
 import L from "leaflet"
 import "leaflet/dist/leaflet.css";
 import { changeToSpecific, changeToOverall } from "./tracking";
-import { setPlaneList } from "./FlightList";
+import { ListCheck, setPlaneList } from "./FlightList";
 
 /***
  * Set and create variables
@@ -84,7 +84,7 @@ function setPlaneOnMap(ListOfFlights){
 
     planesOverall.innerHTML = ensureNumberOfPlanes+ ' planes'
     planeHoveredOrUnhovered();
-   
+    ListCheck();
 }   
 //To avoid double adding planes we have to remove before updating
 function removePlanesOnMap(){
@@ -98,7 +98,7 @@ function removePlanesOnMap(){
 function keepUpdatingPlanes(){
     planeUpdateInterval = setInterval(() => {
         retrieveListOfPlanes();        
-    }, 20000);
+    }, 25000);
 }
 
 // There will be instances where i would want to pause the plane counter
@@ -118,14 +118,10 @@ function planeHoveredOrUnhovered(){
                 activateHover = false;
                 zoomedInPlane.openPopup();
                 changeToSpecific(ListOfDisplayedPlanesData[i]);
-                setTimeout(()=>{
-                    console.log('online again')
-                    activateHover = true;
-                    resetMap(); //after 7 seconds, and they still haven't placed the plane on the map. We reload
-                },5000);
+                pauseUpdatingPlanes(); // pause the timer once the user views details of the flight, since refreshing risks loosing the planes data
             }
             ListOfDisplayedPlanes[i].openPopup();
-            console.log(ListOfDisplayedPlanes[i].getLatLng());
+        
         });
     }
 }
@@ -148,8 +144,16 @@ function resetMap(){
         setTimeout(() =>{
             activateHover = true;
             zoomedInPlane = null;
-        }, 3500)
+        }, 2000)
     }
 }
 
+document.getElementById("resumeUpdates").addEventListener('click', resumeUpdate)
+
+
+function resumeUpdate(){
+    activateHover = true;
+    keepUpdatingPlanes();
+    resetMap();
+}
 
