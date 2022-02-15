@@ -43,3 +43,21 @@
     background: lime;
     border-radius: 20px;  
 }
+.flightInfo{
+
+}
+@media screen and (max-width: 780px) {
+    .card {
+        z-index: 200;
+        background-color: white;
+        border-radius: 10px;
+        opacity: 0.75;
+        border-bottom-left-radius: 10px;
+        padding-left: 10px;
+        margin-right: 5px;
+    }
+
+    .flightInfo{
+        color: white;
+    }
+}

@@ -4,13 +4,13 @@
 import L from "leaflet"
 import "leaflet/dist/leaflet.css";
 import { changeToSpecific, changeToOverall } from "./tracking";
-import { ListCheck, setPlaneList } from "./FlightList";
+import { flightPickedOnList, ListCheck, setPlaneList } from "./FlightList";
 
 /***
  * Set and create variables
  */
 var activateHover = true;
-var zoomedInPlane; //to keep track of the plane that is been zoomed in
+export let zoomedInPlane; //to keep track of the plane that is been zoomed in
 var map = L.map('map').setView([25.505, 10.09], 1.7); 
 var planesOverall = document.getElementById('PlanesOverall');
 var allPlanesList = document.getElementById('ListOfFlights');
@@ -21,7 +21,7 @@ var mapLayer = L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_da
 }).addTo(map);
 
 
-let ListOfDisplayedPlanes = [];
+export let ListOfDisplayedPlanes = []; //might need it in another
 let ListOfDisplayedPlanesData = [];
 var planeUpdateInterval;
 /***
@@ -102,7 +102,7 @@ function keepUpdatingPlanes(){
 }
 
 // There will be instances where i would want to pause the plane counter
-function pauseUpdatingPlanes(){
+export function pauseUpdatingPlanes(){
     clearInterval(planeUpdateInterval);
 }
 
@@ -114,18 +114,24 @@ function planeHoveredOrUnhovered(){
         ListOfDisplayedPlanes[i].on('mouseover', function(ev){
             if(activateHover){
                 zoomedInPlane = ListOfDisplayedPlanes[i];
-                map.flyTo([ListOfDisplayedPlanes[i].getLatLng().lat, ListOfDisplayedPlanes[i].getLatLng().lng], 5);
-                activateHover = false;
                 zoomedInPlane.openPopup();
+               // zoomInPlane(ListOfDisplayedPlanes[i].getLatLng().lat, ListOfDisplayedPlanes[i].getLatLng().lng);
+                map.flyTo([ListOfDisplayedPlanes[i].getLatLng().lat, ListOfDisplayedPlanes[i].getLatLng().lng], 7);
+                activateHover = false;
+                flightPickedOnList(ListOfDisplayedPlanesData[i])
                 changeToSpecific(ListOfDisplayedPlanesData[i]);
                 pauseUpdatingPlanes(); // pause the timer once the user views details of the flight, since refreshing risks loosing the planes data
+                
             }
-            ListOfDisplayedPlanes[i].openPopup();
-        
+
         });
     }
 }
 
+//because i will use it more than once
+export function zoomToPlane(latitude, longitude){
+    map.flyTo([latitude, longitude], 7);
+}
 //incase mouse is hovered in, then moved out of hover before hove mouse out is activated
 map.addEventListener('mousemove', e => {
     if(activateHover && zoomedInPlane !=null){
@@ -138,7 +144,7 @@ map.addEventListener('mousemove', e => {
 function resetMap(){
     if(activateHover){
         map.flyTo([25.505, 10.09], 1.7);
-        zoomedInPlane.closePopup();
+        
         activateHover = false
         changeToOverall();
         setTimeout(() =>{
@@ -153,7 +159,11 @@ document.getElementById("resumeUpdates").addEventListener('click', resumeUpdate)
 
 function resumeUpdate(){
     activateHover = true;
+    if(zoomedInPlane != null){
+        zoomedInPlane.closePopup()
+    }
     keepUpdatingPlanes();
     resetMap();
+    changeToOverall();
 }
 

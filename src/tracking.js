@@ -10,7 +10,7 @@ export function changeToSpecific(planeData){
         specificElement.style.display = "block";
     });
     planeIcon.forEach(planeIcon =>{
-        planeIcon.style.color = "yellow";
+        planeIcon.style.fontSize = "x-large";
     });
     document.getElementById('flightPicked').innerHTML = planeData[1];
     console.log(planeData);

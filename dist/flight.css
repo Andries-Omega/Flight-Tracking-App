@@ -11,6 +11,9 @@
     ". .";
     
 }
+.PlanesOverallHeader{
+
+}
 
 body {
     font-family: monospace ;
@@ -46,8 +49,36 @@ body {
 .planeIcon:hover{
     color:yellow; 
     cursor: pointer;
-    font-size: 30px;
-    transition: 0.2s;
+}
+
+@media screen and (max-width: 780px) {
+    .containerGrid {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 10% 60% 30%;
+        column-gap: 25px;
+        grid-template-areas: 
+        "."
+        "mapside"
+        "statside";
+        
+    }
+
+    .statsSide {
+        border-style: solid;
+        border-width: 2px;
+        padding-left: 20px;
+        z-index: 400;
+        margin-top: -180px;
+        border-color: white;
+        border-radius: 25px;
+        grid-area: statside;
+        height: 75vh;
+    }
+
+    .PlanesOverallHeader{
+        display: none;
+    }
 }
 
 
