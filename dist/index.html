@@ -1,25 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--The CSS-->
     <link rel="stylesheet" type="text/css" href="flight.css">
+    <link rel="stylesheet" type="text/css" href="tracking.css">
+    <link rel="stylesheet" type="text/css" href="FlightList.css">
+
+    <!--Because i use plane font-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <title>Flight Tracker App</title>
+    
+    <title>The Flight Tracker</title>
 </head>
     <body>
         <div class="containerGrid">
-            <h1 style="text-align: center; color: white;">Fight Tracking App</h1>
+            <h1 style="text-align: center; color: white;">The Flight Tracker<span style="font-family: 'Times New Roman', Times, serif; color: lime;">!</span></h1>
             <div class="mapSide">
                 <div id="map" class="TheMap">
                 </div>
             </div>
             <div class="statsSide">
-                <h1>Plane Stats</h1>
+                <div class="overallPlanes">
+                    <h1 id="PlanesOverall"></h1>
+                    <div class="container">
+                        <div id="ListOfFlights">
+                        </div>
+                    </div>
+                </div>
+                <div class="specificPlane">
+                    <h1>Flight: <span id="flightPicked"></span></h1>
                     <ul>
-                        <li>Planes been tracked: <span id="numberOfPlanes" style="color: aquamarine;">0</span></li>   
+                        <li>Planes being display: <span id="numberOfPlanes" style="color: grey;">0</span></li>   
                     </ul>
+                </div>
+                
             </div>
         </div>
     </body>    
