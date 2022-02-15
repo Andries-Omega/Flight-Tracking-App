@@ -55,7 +55,6 @@ function retrieveListOfPlanes(){
 
 //Set List of first 100 planes on the map
 function setPlaneOnMap(ListOfFlights){
-
     var ensureNumberOfPlanes = 0; //variable to make sure we're getting 100 planes on the map
     var actualLoopCount = 0;
 
