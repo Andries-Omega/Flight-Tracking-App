@@ -3,7 +3,7 @@ import { pauseUpdatingPlanes, zoomToPlane } from ".";
 import { changeToSpecific } from "./tracking";
 
 var allPlanesList = document.getElementById('ListOfFlights');
-var allPlanesListArr = [];
+let allPlanesListArr = [];
 var flightPickedInfo = document.getElementById('FlightInformation');
 
 function climbinOrDesc(VerticalRate, Velocity){
@@ -99,5 +99,7 @@ export function flightPickedOnList(flightPicked){
 }
 
 export function clearAllFlightsArr(){
-    this.allPlanesListArr = [];
+    if(allPlanesListArr != null || allPlanesListArr != undefined){
+        allPlanesListArr = [];
+    }
 }
