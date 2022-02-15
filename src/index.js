@@ -4,7 +4,7 @@
 import L from "leaflet"
 import "leaflet/dist/leaflet.css";
 import { changeToSpecific, changeToOverall } from "./tracking";
-import { flightPickedOnList, ListCheck, setPlaneList } from "./FlightList";
+import { flightPickedOnList, ListCheck, setPlaneList, clearAllFlightsArr } from "./FlightList";
 
 /***
  * Set and create variables
@@ -45,6 +45,7 @@ function retrieveListOfPlanes(){
     .then((response) => response.json())
     .then((ListOfFlights) =>{
         removePlanesOnMap();
+        clearAllFlightsArr();
         setPlaneOnMap(ListOfFlights);
     })
     //incase there's an error retrieving list of planes
@@ -81,10 +82,9 @@ function setPlaneOnMap(ListOfFlights){
         actualLoopCount++;
 
     }
-
+    ListCheck();
     planesOverall.innerHTML = ensureNumberOfPlanes+ ' planes'
     planeHoveredOrUnhovered();
-    ListCheck();
 }   
 //To avoid double adding planes we have to remove before updating
 function removePlanesOnMap(){
@@ -142,6 +142,7 @@ map.addEventListener('mousemove', e => {
 });
 //zoom out map to original position
 function resetMap(){
+
     if(activateHover){
         map.flyTo([25.505, 10.09], 1.7);
         

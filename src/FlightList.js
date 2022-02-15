@@ -97,3 +97,7 @@ export function flightPickedOnList(flightPicked){
     }
 
 }
+
+export function clearAllFlightsArr(){
+    this.allPlanesListArr = [];
+}
