@@ -90,7 +90,7 @@ export function flightPickedOnList(flightPicked){
 }
 
 export function clearAllFlightsArr(){
-    if(allPlanesListArr != null || allPlanesListArr != undefined){
+    if(allPlanesListArr){
         allPlanesListArr = [];
     }
 }
