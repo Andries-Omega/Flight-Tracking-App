@@ -1,23 +1,84 @@
-.container {
-    display: flex;
-    justify-content: center;
-    align-content: center;
-}
+
 
 .containerGrid {
     display: grid;
-    grid-template-columns: 70% 30%;
+    grid-template-columns: 75% 20%;
+    grid-template-rows: 10% 80% 10%;
+    column-gap: 25px;
+    grid-template-areas: 
+    ". ."
+    "mapside statside"
+    ". .";
+    
+}
+.PlanesOverallHeader{
+
 }
 
 body {
-    background-color: black;
-    color: blue;
+    font-family: monospace ;
+    background: linear-gradient(to right, darkblue, blue, lightblue);
 }
 
 .mapSide {
-
+    grid-area: mapside;
+    
 }
 
-.statSide {
-
+.statsSide {
+    border-style: solid;
+    border-width: 2px;
+    padding-left: 20px;
+    border-color: white;
+    border-radius: 25px;
+    grid-area: statside;
+    height: 75vh;
 }
+
+.TheMap{
+    opacity: 0.8;
+    border-radius: 25px;
+    height: 75vh;
+}
+
+.planeIcon{
+    color:lime;
+    transition: 2s;
+}
+
+.planeIcon:hover{
+    color:yellow; 
+    cursor: pointer;
+}
+
+@media screen and (max-width: 780px) {
+    .containerGrid {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 10% 60% 30%;
+        column-gap: 25px;
+        grid-template-areas: 
+        "."
+        "mapside"
+        "statside";
+        
+    }
+
+    .statsSide {
+        border-style: solid;
+        border-width: 2px;
+        padding-left: 20px;
+        z-index: 400;
+        margin-top: -180px;
+        border-color: white;
+        border-radius: 25px;
+        grid-area: statside;
+        height: 75vh;
+    }
+
+    .PlanesOverallHeader{
+        display: none;
+    }
+}
+
+

@@ -6,6 +6,13 @@ import "leaflet/dist/leaflet.css";
 import { changeToSpecific, changeToOverall } from "./tracking";
 import { flightPickedOnList, ListCheck, setPlaneList, clearAllFlightsArr } from "./FlightList";
 
+/**
+ * Importing the local css files
+ */
+import "./tracking.css"
+import "./flight.css"
+import "./FlightList.css"
+
 /***
  * Set and create variables
  */
