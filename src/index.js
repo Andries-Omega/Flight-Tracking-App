@@ -4,7 +4,7 @@
 import L from "leaflet"
 import "leaflet/dist/leaflet.css";
 import { changeToSpecific, changeToOverall } from "./tracking";
-import { flightPickedOnList, ListCheck, setPlaneList, clearAllFlightsArr } from "./FlightList";
+import { flightPickedOnList, listCheck, setPlaneList, clearAllFlightsArr } from "./FlightList";
 
 /**
  * Importing the local css files
@@ -17,19 +17,20 @@ import "./FlightList.css"
  * Set and create variables
  */
 var activateHover = true;
-export let zoomedInPlane; //to keep track of the plane that is been zoomed in
+var zoomedInPlane; //to keep track of the plane that is been zoomed in
+
 var map = L.map('map').setView([25.505, 10.09], 1.7); 
 var planesOverall = document.getElementById('PlanesOverall');
 var allPlanesList = document.getElementById('ListOfFlights');
 
-var mapLayer = L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {
+L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {
 	maxZoom: 20,
 	attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
 }).addTo(map);
 
 
-export let ListOfDisplayedPlanes = []; //might need it in another
-let ListOfDisplayedPlanesData = [];
+let listOfDisplayedPlanes = []; //might need it in another
+let listOfDisplayedPlanesData = [];
 var planeUpdateInterval;
 /***
  * Call Functions
@@ -76,10 +77,10 @@ function setPlaneOnMap(ListOfFlights){
             iconSize: [0.5, 0.5]
         });
         if(planeLongitude != null && planeLatitude != null){
-            ListOfDisplayedPlanes.push(L.marker([planeLatitude, planeLongitude],{ icon:  planeIcon}).addTo(map)
+            listOfDisplayedPlanes.push(L.marker([planeLatitude, planeLongitude],{ icon:  planeIcon}).addTo(map)
             .bindPopup('Flight: ' + ListOfFlights.states[actualLoopCount][1]));   
             
-            ListOfDisplayedPlanesData.push(ListOfFlights.states[actualLoopCount]);
+            listOfDisplayedPlanesData.push(ListOfFlights.states[actualLoopCount]);
             ensureNumberOfPlanes++;
             
             setPlaneList(ListOfFlights.states, actualLoopCount);//function that will populate list of planes
@@ -89,14 +90,14 @@ function setPlaneOnMap(ListOfFlights){
         actualLoopCount++;
 
     }
-    ListCheck();
+    listCheck();
     planesOverall.innerHTML = ensureNumberOfPlanes+ ' planes'
     planeHoveredOrUnhovered();
 }   
 //To avoid double adding planes we have to remove before updating
 function removePlanesOnMap(){
-    for(let i = 0; i < ListOfDisplayedPlanes.length; i++){
-        map.removeLayer(ListOfDisplayedPlanes[i]);
+    for(let i = 0; i < listOfDisplayedPlanes.length; i++){
+        map.removeLayer(listOfDisplayedPlanes[i]);
     }
     allPlanesList.innerHTML = ``
 }
@@ -116,17 +117,17 @@ export function pauseUpdatingPlanes(){
 //add functionality on the planes
 function planeHoveredOrUnhovered(){
    
-    for(let i =0; i < ListOfDisplayedPlanes.length; i++){
+    for(let i =0; i < listOfDisplayedPlanes.length; i++){
         
-        ListOfDisplayedPlanes[i].on('mouseover', function(ev){
+        listOfDisplayedPlanes[i].on('mouseover', function(ev){
             if(activateHover){
-                zoomedInPlane = ListOfDisplayedPlanes[i];
+                zoomedInPlane = listOfDisplayedPlanes[i];
                 zoomedInPlane.openPopup();
                // zoomInPlane(ListOfDisplayedPlanes[i].getLatLng().lat, ListOfDisplayedPlanes[i].getLatLng().lng);
-                map.flyTo([ListOfDisplayedPlanes[i].getLatLng().lat, ListOfDisplayedPlanes[i].getLatLng().lng], 7);
+                map.flyTo([listOfDisplayedPlanes[i].getLatLng().lat, listOfDisplayedPlanes[i].getLatLng().lng], 7);
                 activateHover = false;
-                flightPickedOnList(ListOfDisplayedPlanesData[i])
-                changeToSpecific(ListOfDisplayedPlanesData[i]);
+                flightPickedOnList(listOfDisplayedPlanesData[i])
+                changeToSpecific(listOfDisplayedPlanesData[i]);
                 pauseUpdatingPlanes(); // pause the timer once the user views details of the flight, since refreshing risks loosing the planes data
                 
             }

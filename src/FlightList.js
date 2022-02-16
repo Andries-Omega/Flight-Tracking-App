@@ -3,11 +3,11 @@ import { pauseUpdatingPlanes, zoomToPlane } from ".";
 import { changeToSpecific } from "./tracking";
 
 var allPlanesList = document.getElementById('ListOfFlights');
-let allPlanesListArr = [];
+var allPlanesListArr = [];
 var flightPickedInfo = document.getElementById('FlightInformation');
 
 function climbinOrDesc(VerticalRate, Velocity){
-    var cOrD = '';
+    let cOrD = '';
     if(VerticalRate == null || VerticalRate== undefined){
         cOrD = 'Unknown';
     }else if(VerticalRate > 0){
@@ -28,29 +28,20 @@ function climbinOrDesc(VerticalRate, Velocity){
     return cOrD;
 }
 
+
 //adding list of planes and their data
 export function setPlaneList(theFlight, currentIndex){
-    var flightID = theFlight[currentIndex][1];
-    var flightOrigin = theFlight[currentIndex][2];
-    var flightVelocity = theFlight[currentIndex][9];
-    var ClimbingOrDescending = '';
-    if(flightID == null || flightID == undefined || flightID == ''){
-        flightID = theFlight[currentIndex][0];
-    }
+    let flightID = theFlight[currentIndex][1] || theFlight[currentIndex][0];
+    let flightOrigin = theFlight[currentIndex][2] || 'Unknown';
+    let flightVelocity = theFlight[currentIndex][9] || 'Unknown';
+    let climbingOrDescending = '';
 
-    if(flightOrigin == null || flightOrigin == undefined || flightOrigin == ''){
-        flightOrigin = 'Unknown';
-    }
-
-    if(flightVelocity == null || flightVelocity == undefined || flightVelocity == 0.0){
-        flightVelocity = 'Unknown';
-    }
-    ClimbingOrDescending = climbinOrDesc(theFlight[currentIndex][11], flightVelocity);
+    climbingOrDescending = climbinOrDesc(theFlight[currentIndex][11], flightVelocity);
     allPlanesList.innerHTML += `<div class="card" id="${theFlight[currentIndex][0]}" title="Click To View Plane">
                                     <h3>Flight ${flightID} </h3>
                                     <p>Origin: ${flightOrigin}</p>
                                     <p>Velocity: ${flightVelocity} m/s</p>
-                                    <p>Position: ${ClimbingOrDescending}</p>
+                                    <p>Position: ${climbingOrDescending}</p>
                                     <br/>
                                 </div>`
     allPlanesListArr.push(theFlight[currentIndex]);//store list of flights data so we can view them when they click
@@ -58,7 +49,7 @@ export function setPlaneList(theFlight, currentIndex){
 
 
 //function to container an event lister for cards
-export function ListCheck() {
+export function listCheck() {
     for(let i = 0; i < allPlanesListArr.length; i++){
         if(allPlanesListArr[i][0] != null && allPlanesListArr[i][0] != undefined){
             document.getElementById(allPlanesListArr[i][0]).addEventListener('click', e =>{
