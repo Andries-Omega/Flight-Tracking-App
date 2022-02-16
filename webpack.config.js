@@ -4,7 +4,7 @@ module.exports = {
     
     devServer: {
     
-    static: "./src",
+    static: "./dist",
     
     },
     
