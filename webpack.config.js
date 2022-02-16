@@ -1,7 +1,7 @@
 module.exports = {
   mode: "development",
   devServer: {
-    static: "./",
+    static: "./dist",
   },
   module: {
     rules: [

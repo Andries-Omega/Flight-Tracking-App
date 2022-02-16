@@ -13,7 +13,6 @@ export function changeToSpecific(planeData){
         planeIcon.style.fontSize = "x-large";
     });
     document.getElementById('flightPicked').innerHTML = planeData[1];
-    console.log(planeData);
 }
 
 export function changeToOverall(){
