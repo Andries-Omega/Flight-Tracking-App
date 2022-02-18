@@ -16,11 +16,6 @@
 	display: block;
 }
 
-body {
-	font-family: monospace;
-	background: linear-gradient(to right, darkblue, blue, lightblue);
-}
-
 .mapSide {
 	grid-area: mapside;
 }
