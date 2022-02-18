@@ -23,3 +23,4 @@ export function changeToOverall() {
 		overalElement.style.display = "block";
 	});
 }
+// `./*.{html, js}`

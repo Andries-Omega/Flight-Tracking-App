@@ -84,7 +84,7 @@ function setPlaneOnMap(ListOfFlights) {
 			html:
 				'<span class="planeIcon" ><i style="transform: rotate(' +
 				ListOfFlights.states[actualLoopCount][10] +
-				'deg);" class="fa-solid fa-plane"></i></span>',
+				'deg); color: lime; cursor: pointer;" class="fa-solid fa-plane"></i></span>',
 			iconSize: [0.5, 0.5],
 		});
 		if (planeLongitude != null && planeLatitude != null) {
@@ -194,5 +194,5 @@ function resumeUpdate() {
 }
 
 setTimeout(() => {
-	console.clear(); //there's an unnecessary error that displays everytime the page loads.
+	//console.clear(); //there's an unnecessary error that displays everytime the page loads.
 }, 2000);

@@ -38,7 +38,7 @@
 	}
 
 	.planeIcon {
-		color: lime;
+		color: hsl(120, 60.8%, 50%);
 		transition: 2s;
 	}
 
