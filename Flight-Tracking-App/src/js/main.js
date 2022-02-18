@@ -1,10 +1,10 @@
 // The CSS being used
+
+// Get in tailwind
+import "tailwindcss/tailwind.css";
 import "../css/style.css";
 import "../css/flightList.css";
 import "../css/tracking.css";
-// Get in tailwind
-import "tailwindcss/tailwind.css";
-
 //the map
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
@@ -103,7 +103,7 @@ function setPlaneOnMap(ListOfFlights) {
 		actualLoopCount++;
 	}
 	listCheck();
-	planesOverall.innerHTML = ensureNumberOfPlanes + " planes";
+	planesOverall.innerHTML = `<span style="color: lime">${ensureNumberOfPlanes}</span> Planes`;
 	planeHoveredOrUnhovered();
 }
 //To avoid double adding planes we have to remove before updating

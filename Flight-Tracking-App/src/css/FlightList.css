@@ -10,6 +10,7 @@
 		border-bottom-left-radius: 10px;
 		padding-left: 10px;
 		margin-right: 5px;
+		margin-bottom: 10px;
 	}
 
 	.card:hover {
@@ -46,9 +47,11 @@
 		background: lime;
 		border-radius: 20px;
 	}
+
 	.flightInfo {
 		color: black;
 	}
+
 	@media screen and (max-width: 780px) {
 		.card {
 			z-index: 200;
@@ -58,6 +61,7 @@
 			border-bottom-left-radius: 10px;
 			padding-left: 10px;
 			margin-right: 5px;
+			margin-bottom: 10px;
 		}
 
 		.flightInfo {

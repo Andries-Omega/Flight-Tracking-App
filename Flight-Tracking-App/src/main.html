@@ -1,16 +1,18 @@
 
-<div class="containerGrid">
-    <h1 class="text-center">The Flight Tracker <span style="font-family: 'Times New Roman', Times, serif; color: lime;">!</span></h1>
-    <br/>
+<div class="containerGrid mt-6 ml-4">
+    <h1 class="text-center text-3xl" style="color: white;">The Flight Tracker <span style="font-family: 'Times New Roman', Times, serif; color: lime;">!</span></h1>
     <div class="mapSide">
         <div id="map" class="TheMap">
         </div>
     </div>
     <div class="statsSide">
         <div class="overallPlanes">
-            <h1 class = "PlanesOverallHeader" id="PlanesOverall"></h1>
+            <h1 class = "text-center text-xl mb-4 mt-4" id="PlanesOverall" style="color: white;"></h1>
             <div class="container">
+                <!--This card div is a bug fix, it means nothing(Just fixes a bug)-->
+                <div class="card"></div>
                 <div id="ListOfFlights">
+                
                 </div>
             </div>
         </div>
@@ -19,7 +21,6 @@
             <button id="resumeUpdates" class="btnResume">Resume Updates</button>
             <div class="container">
                 <div id="FlightInformation" class="flightInfo">
-
                 </div>
             </div>
         </div>

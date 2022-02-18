@@ -43,7 +43,6 @@ export function setPlaneList(theFlight, currentIndex) {
                                     <p>Origin: ${flightOrigin}</p>
                                     <p>Velocity: ${flightVelocity} m/s</p>
                                     <p>Position: ${climbingOrDescending}</p>
-                                    <br/>
                                 </div>`;
 	allPlanesListArr.push(theFlight[currentIndex]); //store list of flights data so we can view them when they click
 }
