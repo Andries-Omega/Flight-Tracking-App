@@ -2,6 +2,8 @@
 import "../css/style.css";
 import "../css/flightList.css";
 import "../css/tracking.css";
+// Get in tailwind
+import "tailwindcss/tailwind.css";
 
 //the map
 import L from "leaflet";

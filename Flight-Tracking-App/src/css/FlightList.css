@@ -1,63 +1,61 @@
 .card {
-    z-index: 200;
-    background-color: white;
-    border-radius: 10px;
-    border-bottom-left-radius: 10px;
-    padding-left: 10px;
-    margin-right: 5px;
+	z-index: 200;
+	background-color: white;
+	border-radius: 10px;
+	border-bottom-left-radius: 10px;
+	padding-left: 10px;
+	margin-right: 5px;
 }
 
 .card:hover {
-    z-index: 100;
-    background-color: black;
-    border-radius: 10px;
-    border-bottom-left-radius: 10px;
-    padding-left: 10px;
-    margin-right: 5px;
-    opacity: 0.5;
-    transition: 2s;
-    cursor: pointer;
-    color: lime;
-
+	z-index: 100;
+	background-color: black;
+	border-radius: 10px;
+	border-bottom-left-radius: 10px;
+	padding-left: 10px;
+	margin-right: 5px;
+	opacity: 0.5;
+	transition: 2s;
+	cursor: pointer;
+	color: lime;
 }
 
 .container {
-    width: 100%;
-    height: 63vh;
-    z-index: 205;
-    overflow: auto;
-    direction: ltr;
+	width: 100%;
+	height: 63vh;
+	z-index: 205;
+	overflow: auto;
+	direction: ltr;
 }
 
-::-webkit-scrollbar{
-    width: 6px;       
-    
+::-webkit-scrollbar {
+	width: 6px;
 }
 
-::-webkit-scrollbar-track{
-    opacity: 0;
-    background: transparent;
+::-webkit-scrollbar-track {
+	opacity: 0;
+	background: transparent;
 }
 
-::-webkit-scrollbar-thumb{
-    background: lime;
-    border-radius: 20px;  
+::-webkit-scrollbar-thumb {
+	background: lime;
+	border-radius: 20px;
 }
-.flightInfo{
-    color: black;
+.flightInfo {
+	color: black;
 }
 @media screen and (max-width: 780px) {
-    .card {
-        z-index: 200;
-        background-color: white;
-        border-radius: 10px;
-        opacity: 0.75;
-        border-bottom-left-radius: 10px;
-        padding-left: 10px;
-        margin-right: 5px;
-    }
+	.card {
+		z-index: 200;
+		background-color: white;
+		border-radius: 10px;
+		opacity: 0.75;
+		border-bottom-left-radius: 10px;
+		padding-left: 10px;
+		margin-right: 5px;
+	}
 
-    .flightInfo{
-        color: white;
-    }
+	.flightInfo {
+		color: white;
+	}
 }
