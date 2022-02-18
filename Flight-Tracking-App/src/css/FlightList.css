@@ -44,7 +44,7 @@
     border-radius: 20px;  
 }
 .flightInfo{
-
+    color: black;
 }
 @media screen and (max-width: 780px) {
     .card {
