@@ -1,7 +1,7 @@
-// The CSS being used
-
 // Get in tailwind
 import "tailwindcss/tailwind.css";
+
+// The CSS being used
 import "../css/style.css";
 import "../css/flightList.css";
 import "../css/tracking.css";
@@ -108,9 +108,9 @@ function setPlaneOnMap(ListOfFlights) {
 }
 //To avoid double adding planes we have to remove before updating
 function removePlanesOnMap() {
-	for (let i = 0; i < listOfDisplayedPlanes.length; i++) {
-		map.removeLayer(listOfDisplayedPlanes[i]);
-	}
+	listOfDisplayedPlanes.forEach((lodp) => {
+		map.removeLayer(lodp);
+	});
 	allPlanesList.innerHTML = ``;
 }
 
@@ -128,7 +128,7 @@ export function pauseUpdatingPlanes() {
 
 //add functionality on the planes
 function planeHoveredOrUnhovered() {
-	for (let i = 0; i < listOfDisplayedPlanes.length; i++) {
+	listOfDisplayedPlanes.forEach((lodp) => {
 		listOfDisplayedPlanes[i].on("mouseover", function (ev) {
 			if (activateHover) {
 				zoomedInPlane = listOfDisplayedPlanes[i];
@@ -147,7 +147,7 @@ function planeHoveredOrUnhovered() {
 				pauseUpdatingPlanes(); // pause the timer once the user views details of the flight, since refreshing risks loosing the planes data
 			}
 		});
-	}
+	});
 }
 
 //because i will use it more than once
@@ -192,7 +192,3 @@ function resumeUpdate() {
 	resetMap();
 	changeToOverall();
 }
-
-setTimeout(() => {
-	//console.clear(); //there's an unnecessary error that displays everytime the page loads.
-}, 2000);

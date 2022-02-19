@@ -38,6 +38,7 @@ export function setPlaneList(theFlight, currentIndex) {
 		theFlight[currentIndex][11],
 		flightVelocity
 	);
+
 	allPlanesList.innerHTML += `<div class="card" id="${theFlight[currentIndex][0]}" title="Click To View Plane">
                                     <h3>Flight ${flightID} </h3>
                                     <p>Origin: ${flightOrigin}</p>
@@ -49,7 +50,7 @@ export function setPlaneList(theFlight, currentIndex) {
 
 //function to container an event lister for cards
 export function listCheck() {
-	for (let i = 0; i < allPlanesListArr.length; i++) {
+	allPlanesListArr.forEach((pla) => {
 		if (allPlanesListArr[i][0] != null && allPlanesListArr[i][0] != undefined) {
 			document
 				.getElementById(allPlanesListArr[i][0])
@@ -58,7 +59,7 @@ export function listCheck() {
 					changeToSpecific(allPlanesListArr[i]);
 				});
 		}
-	}
+	});
 }
 
 export function flightPickedOnList(flightPicked) {
