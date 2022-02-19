@@ -57,7 +57,7 @@ keepUpdatingPlanes();
 
 // Get List Of all planes from open sky
 function retrieveListOfPlanes() {
-	planesOverall.innerHTML = 'Updating<span style="color:lime;">....</span>';
+	planesOverall.innerHTML = 'Updating<span style="color:lime;">...</span>';
 	fetch("https://opensky-network.org/api/states/all")
 		.then((response) => response.json())
 		.then((ListOfFlights) => {
@@ -87,7 +87,7 @@ function setPlaneOnMap(ListOfFlights) {
 				'deg); color: lime; cursor: pointer;" class="fa-solid fa-plane"></i></span>',
 			iconSize: [0.5, 0.5],
 		});
-		if (planeLongitude != null && planeLatitude != null) {
+		if (planeLongitude && planeLatitude) {
 			listOfDisplayedPlanes.push(
 				L.marker([planeLatitude, planeLongitude], { icon: planeIcon })
 					.addTo(map)
@@ -129,21 +129,15 @@ export function pauseUpdatingPlanes() {
 //add functionality on the planes
 function planeHoveredOrUnhovered() {
 	listOfDisplayedPlanes.forEach((lodp) => {
-		listOfDisplayedPlanes[i].on("mouseover", function (ev) {
+		lodp.on("mouseover", function (ev) {
 			if (activateHover) {
-				zoomedInPlane = listOfDisplayedPlanes[i];
+				zoomedInPlane = lodp;
 				zoomedInPlane.openPopup();
 				// zoomInPlane(ListOfDisplayedPlanes[i].getLatLng().lat, ListOfDisplayedPlanes[i].getLatLng().lng);
-				map.flyTo(
-					[
-						listOfDisplayedPlanes[i].getLatLng().lat,
-						listOfDisplayedPlanes[i].getLatLng().lng,
-					],
-					7
-				);
+				map.flyTo([lodp.getLatLng().lat, lodp.getLatLng().lng], 7);
 				activateHover = false;
-				flightPickedOnList(listOfDisplayedPlanesData[i]);
-				changeToSpecific(listOfDisplayedPlanesData[i]);
+				flightPickedOnList(lodp);
+				changeToSpecific(lodp);
 				pauseUpdatingPlanes(); // pause the timer once the user views details of the flight, since refreshing risks loosing the planes data
 			}
 		});
@@ -156,7 +150,7 @@ export function zoomToPlane(latitude, longitude) {
 }
 //incase mouse is hovered in, then moved out of hover before hove mouse out is activated
 map.addEventListener("mousemove", (e) => {
-	if (activateHover && zoomedInPlane != null) {
+	if (activateHover && zoomedInPlane) {
 		if (
 			e.latlng.lat != zoomedInPlane.getLatLng().lat ||
 			e.latlng.lng != zoomedInPlane.getLatLng().lng

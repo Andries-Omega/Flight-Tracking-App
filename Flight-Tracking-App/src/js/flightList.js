@@ -51,13 +51,11 @@ export function setPlaneList(theFlight, currentIndex) {
 //function to container an event lister for cards
 export function listCheck() {
 	allPlanesListArr.forEach((pla) => {
-		if (allPlanesListArr[i][0] != null && allPlanesListArr[i][0] != undefined) {
-			document
-				.getElementById(allPlanesListArr[i][0])
-				.addEventListener("click", (e) => {
-					flightPickedOnList(allPlanesListArr[i]);
-					changeToSpecific(allPlanesListArr[i]);
-				});
+		if (pla[0]) {
+			document.getElementById(pla[0]).addEventListener("click", (e) => {
+				flightPickedOnList(pla);
+				changeToSpecific(pla);
+			});
 		}
 	});
 }
