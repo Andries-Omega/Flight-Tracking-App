@@ -159,6 +159,7 @@ export function zoomToPlane(flightID, latitude, longitude, index) {
 }
 //incase mouse is hovered in, then moved out of hover before hove mouse out is activated
 map.addEventListener("mousemove", (e) => {
+	console.log(activateHover);
 	if (activateHover && zoomedInPlane) {
 		if (
 			e.latlng.lat != zoomedInPlane.getLatLng().lat ||
@@ -185,7 +186,7 @@ document
 	.getElementById("resumeUpdates")
 	.addEventListener("click", resumeUpdate);
 
-function resumeUpdate() {
+export function resumeUpdate() {
 	activateHover = true;
 	$("#" + zoomedInPlaneData[0])
 		.removeClass("planeIconZoom")
