@@ -3,6 +3,7 @@ import { resumeUpdate } from "./main";
 let overalElements = document.querySelectorAll(".overallPlanes");
 let specificElements = document.querySelectorAll(".specificPlane");
 let planeTimers = document.querySelectorAll(".thePlaneTimer");
+let planeTimes = document.querySelectorAll(".theTimeDisplay ");
 let planeIcon = document.querySelectorAll(".planeIcon");
 
 let countDownInterval;
@@ -42,6 +43,9 @@ export function changeToOverall() {
 function startCountDown() {
 	let theMinute = 1;
 	let theSecond = 60;
+	planeTimes.forEach((pTime) => {
+		pTime.style.color = "lime";
+	});
 	countDownInterval = setInterval(() => {
 		theSecond--;
 		if (!theSecond && !theMinute) {
@@ -51,10 +55,24 @@ function startCountDown() {
 		} else if (!theSecond && theMinute) {
 			//it implies the first minut is over
 			theMinute--;
-			theSecond = 60;
+			theSecond = 59;
+			planeTimes.forEach((pTime) => {
+				pTime.style.color = "yellow";
+			});
 		}
-		document.getElementById("theTime").innerHTML =
-			"0" + theMinute + ":" + theSecond;
+
+		if (!theMinute && theSecond == 30) {
+			planeTimes.forEach((pTime) => {
+				pTime.style.color = "red";
+			});
+		}
+		if (theSecond < 10) {
+			document.getElementById("theTime").innerHTML =
+				"0" + theMinute + ":0" + theSecond;
+		} else {
+			document.getElementById("theTime").innerHTML =
+				"0" + theMinute + ":" + theSecond;
+		}
 	}, 1000);
 }
 

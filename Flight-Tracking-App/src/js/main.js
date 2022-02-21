@@ -135,9 +135,7 @@ function planeHoveredOrUnhovered() {
 		lodp.on("mouseover", () => {
 			if (activateHover) {
 				zoomedInPlane = lodp;
-				activateHover = false;
 				lodp.openPopup();
-				``;
 				flightPickedOnList(listOfDisplayedPlanesData[index]);
 				changeToSpecific(listOfDisplayedPlanesData[index]);
 				pauseUpdatingPlanes(); // pause the timer once the user views details of the flight, since refreshing risks loosing the planes data
@@ -156,6 +154,7 @@ export function zoomToPlane(flightID, latitude, longitude, index) {
 		.removeClass("planeIconNoZoom")
 		.addClass("planeIconZoom");
 	map.flyTo([latitude, longitude], 7);
+	activateHover = false;
 }
 //incase mouse is hovered in, then moved out of hover before hove mouse out is activated
 map.addEventListener("mousemove", (e) => {

@@ -56,3 +56,6 @@
 .thePlaneTimer {
 	display: none;
 }
+.theTimeDisplay {
+	color: lime;
+}
