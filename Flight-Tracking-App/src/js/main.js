@@ -22,7 +22,8 @@ import {
  * Set and create variables
  */
 let activateHover = true;
-let zoomedInPlane; //to keep track of the plane that is been zoomed in
+let zoomedInPlane; //to keep track of the plane that is been zoomed in (html and css properties)
+let zoomedInPlaneData;
 
 let map = L.map("map").setView([25.505, 10.09], 1.7);
 
@@ -60,10 +61,10 @@ function retrieveListOfPlanes() {
 	planesOverall.innerHTML = 'Updating<span style="color:lime;">...</span>';
 	fetch("https://opensky-network.org/api/states/all")
 		.then((response) => response.json())
-		.then((ListOfFlights) => {
+		.then((listOfFlights) => {
 			removePlanesOnMap();
 			clearAllFlightsArr();
-			setPlaneOnMap(ListOfFlights);
+			setPlaneOnMap(listOfFlights);
 		})
 		//incase there's an error retrieving list of planes
 		.catch((err) => {
@@ -72,32 +73,34 @@ function retrieveListOfPlanes() {
 }
 
 //Set List of first 100 planes on the map
-function setPlaneOnMap(ListOfFlights) {
+function setPlaneOnMap(listOfFlights) {
 	var ensureNumberOfPlanes = 0; //variable to make sure we're getting 100 planes on the map
 	var actualLoopCount = 0;
 
 	while (ensureNumberOfPlanes < 100) {
-		var planeLongitude = ListOfFlights.states[actualLoopCount][5];
-		var planeLatitude = ListOfFlights.states[actualLoopCount][6];
+		var planeLongitude = listOfFlights.states[actualLoopCount][5];
+		var planeLatitude = listOfFlights.states[actualLoopCount][6];
 
 		const planeIcon = L.divIcon({
 			html:
-				'<span class="planeIcon" ><i style="transform: rotate(' +
-				ListOfFlights.states[actualLoopCount][10] +
-				'deg); color: lime; cursor: pointer;" class="fa-solid fa-plane"></i></span>',
+				'<span><i style="transform: rotate(' +
+				listOfFlights.states[actualLoopCount][10] +
+				'deg); " id="' +
+				listOfFlights.states[actualLoopCount][0] +
+				'" class="fa-solid fa-plane planeIconNoZoom"></i></span>',
 			iconSize: [0.5, 0.5],
 		});
 		if (planeLongitude && planeLatitude) {
 			listOfDisplayedPlanes.push(
 				L.marker([planeLatitude, planeLongitude], { icon: planeIcon })
 					.addTo(map)
-					.bindPopup("Flight: " + ListOfFlights.states[actualLoopCount][1])
+					.bindPopup("Flight: " + listOfFlights.states[actualLoopCount][1])
 			);
 
-			listOfDisplayedPlanesData.push(ListOfFlights.states[actualLoopCount]);
+			listOfDisplayedPlanesData.push(listOfFlights.states[actualLoopCount]);
 			ensureNumberOfPlanes++;
 
-			setPlaneList(ListOfFlights.states, actualLoopCount); //function that will populate list of planes
+			setPlaneList(listOfFlights.states, actualLoopCount); //function that will populate list of planes
 		}
 
 		actualLoopCount++;
@@ -128,16 +131,15 @@ export function pauseUpdatingPlanes() {
 
 //add functionality on the planes
 function planeHoveredOrUnhovered() {
-	listOfDisplayedPlanes.forEach((lodp) => {
-		lodp.on("mouseover", function (ev) {
+	listOfDisplayedPlanes.forEach((lodp, index) => {
+		lodp.on("mouseover", () => {
 			if (activateHover) {
 				zoomedInPlane = lodp;
-				zoomedInPlane.openPopup();
-				// zoomInPlane(ListOfDisplayedPlanes[i].getLatLng().lat, ListOfDisplayedPlanes[i].getLatLng().lng);
-				map.flyTo([lodp.getLatLng().lat, lodp.getLatLng().lng], 7);
 				activateHover = false;
-				flightPickedOnList(lodp);
-				changeToSpecific(lodp);
+				lodp.openPopup();
+				``;
+				flightPickedOnList(listOfDisplayedPlanesData[index]);
+				changeToSpecific(listOfDisplayedPlanesData[index]);
 				pauseUpdatingPlanes(); // pause the timer once the user views details of the flight, since refreshing risks loosing the planes data
 			}
 		});
@@ -145,7 +147,14 @@ function planeHoveredOrUnhovered() {
 }
 
 //because i will use it more than once
-export function zoomToPlane(latitude, longitude) {
+export function zoomToPlane(flightID, latitude, longitude, index) {
+	if (!zoomedInPlane) {
+		zoomedInPlane = listOfDisplayedPlanes[index];
+	}
+	zoomedInPlane.openPopup();
+	$("#" + flightID)
+		.removeClass("planeIconNoZoom")
+		.addClass("planeIconZoom");
 	map.flyTo([latitude, longitude], 7);
 }
 //incase mouse is hovered in, then moved out of hover before hove mouse out is activated
@@ -163,7 +172,6 @@ map.addEventListener("mousemove", (e) => {
 function resetMap() {
 	if (activateHover) {
 		map.flyTo([25.505, 10.09], 1.7);
-
 		activateHover = false;
 		changeToOverall();
 		setTimeout(() => {
@@ -179,10 +187,17 @@ document
 
 function resumeUpdate() {
 	activateHover = true;
-	if (zoomedInPlane != null) {
+	$("#" + zoomedInPlaneData[0])
+		.removeClass("planeIconZoom")
+		.addClass("planeIconNoZoom");
+	if (zoomedInPlane) {
 		zoomedInPlane.closePopup();
 	}
 	keepUpdatingPlanes();
 	resetMap();
 	changeToOverall();
+}
+
+export function setFlightZoomed(flightZ) {
+	zoomedInPlaneData = flightZ;
 }

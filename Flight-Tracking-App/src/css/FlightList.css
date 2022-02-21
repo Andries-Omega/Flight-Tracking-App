@@ -2,69 +2,67 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer utilities {
+.card {
+	z-index: 200;
+	background-color: white;
+	border-radius: 10px;
+	border-bottom-left-radius: 10px;
+	padding-left: 10px;
+	margin-right: 5px;
+	margin-bottom: 10px;
+}
+
+.card:hover {
+	z-index: 100;
+	background-color: black;
+	border-radius: 10px;
+	padding-left: 10px;
+	margin-right: 5px;
+	opacity: 0.5;
+	transition: 2s;
+	cursor: pointer;
+	color: lime;
+}
+
+.containerFlights {
+	width: 100%;
+	height: 67vh;
+	overflow-y: auto;
+	direction: ltr;
+	border-radius: 10px;
+}
+
+::-webkit-scrollbar {
+	width: 6px;
+}
+
+::-webkit-scrollbar-track {
+	opacity: 0;
+	background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+	background: lime;
+	border-radius: 20px;
+}
+
+.flightInfo {
+	color: black;
+}
+
+@media screen and (max-width: 780px) {
 	.card {
 		z-index: 200;
 		background-color: white;
 		border-radius: 10px;
+		opacity: 0.75;
 		border-bottom-left-radius: 10px;
 		padding-left: 10px;
 		margin-right: 5px;
 		margin-bottom: 10px;
 	}
 
-	.card:hover {
-		z-index: 100;
-		background-color: black;
-		border-radius: 10px;
-		padding-left: 10px;
-		margin-right: 5px;
-		opacity: 0.5;
-		transition: 2s;
-		cursor: pointer;
-		color: lime;
-	}
-
-	.containerFlights {
-		width: 100%;
-		height: 67vh;
-		overflow-y: auto;
-		direction: ltr;
-		border-radius: 10px;
-	}
-
-	::-webkit-scrollbar {
-		width: 6px;
-	}
-
-	::-webkit-scrollbar-track {
-		opacity: 0;
-		background: transparent;
-	}
-
-	::-webkit-scrollbar-thumb {
-		background: lime;
-		border-radius: 20px;
-	}
-
 	.flightInfo {
-		color: black;
-	}
-
-	@media screen and (max-width: 780px) {
-		.card {
-			z-index: 200;
-			background-color: white;
-			border-radius: 10px;
-			opacity: 0.75;
-			border-bottom-left-radius: 10px;
-			padding-left: 10px;
-			margin-right: 5px;
-			margin-bottom: 10px;
-		}
-
-		.flightInfo {
-			color: white;
-		}
+		color: white;
 	}
 }

@@ -1,4 +1,4 @@
-import { pauseUpdatingPlanes, zoomToPlane } from "./main";
+import { pauseUpdatingPlanes, setFlightZoomed, zoomToPlane } from "./main";
 import { changeToSpecific } from "./tracking";
 
 var allPlanesList = document.getElementById("ListOfFlights");
@@ -39,7 +39,7 @@ export function setPlaneList(theFlight, currentIndex) {
 		flightVelocity
 	);
 
-	allPlanesList.innerHTML += `<div class="card" id="${theFlight[currentIndex][0]}" title="Click To View Plane">
+	allPlanesList.innerHTML += `<div class="card" id="Card-${theFlight[currentIndex][0]}" title="Click To View Plane">
                                     <h3>Flight ${flightID} </h3>
                                     <p>Origin: ${flightOrigin}</p>
                                     <p>Velocity: ${flightVelocity} m/s</p>
@@ -50,18 +50,21 @@ export function setPlaneList(theFlight, currentIndex) {
 
 //function to container an event lister for cards
 export function listCheck() {
-	allPlanesListArr.forEach((pla) => {
+	allPlanesListArr.forEach((pla, index) => {
 		if (pla[0]) {
-			document.getElementById(pla[0]).addEventListener("click", (e) => {
-				flightPickedOnList(pla);
-				changeToSpecific(pla);
-			});
+			document
+				.getElementById("Card-" + pla[0])
+				.addEventListener("click", (e) => {
+					flightPickedOnList(pla, index);
+					changeToSpecific(pla);
+				});
 		}
 	});
 }
 
-export function flightPickedOnList(flightPicked) {
+export function flightPickedOnList(flightPicked, index) {
 	if (flightPicked != null) {
+		setFlightZoomed(flightPicked);
 		pauseUpdatingPlanes();
 		flightPickedInfo.innerHTML = `<ul>
                                         <li>Origin Country: ${
@@ -99,7 +102,10 @@ export function flightPickedOnList(flightPicked) {
 																					flightPicked[13]
 																				}</li>
                                       </ul>`;
-		zoomToPlane(flightPicked[6], flightPicked[5]);
+		// make sure latitude and longitude are defined
+		if (flightPicked[6] && flightPicked[5]) {
+			zoomToPlane(flightPicked[0], flightPicked[6], flightPicked[5], index);
+		}
 	} else {
 		flightPickedInfo.innerHTML = `<h1 style="color:red;">Flight Info Not Found</h1>`;
 	}

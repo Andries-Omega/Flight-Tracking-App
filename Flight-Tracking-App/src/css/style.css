@@ -2,82 +2,82 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer utilities {
+.containerGrid {
+	display: grid;
+	grid-template-columns: 75% 20%;
+	grid-template-rows: 10% 80% 10%;
+	column-gap: 20px;
+	grid-template-areas:
+		". ."
+		"mapside statside"
+		". .";
+}
+.PlanesOverallHeader {
+	display: block;
+}
+
+.mapSide {
+	grid-area: mapside;
+}
+
+.statsSide {
+	border: solid white;
+	border-width: 3px;
+	padding-left: 20px;
+	border-radius: 25px;
+	grid-area: statside;
+	height: 75vh;
+}
+
+.TheMap {
+	opacity: 0.8;
+	border-radius: 25px;
+	height: 75vh;
+}
+
+.planeIconNoZoom {
+	color: lime;
+	cursor: pointer;
+	transition: 2s;
+}
+
+.planeIconZoom {
+	color: yellow;
+	font-size: 40px;
+	cursor: pointer;
+	transition: 2s;
+}
+
+@media screen and (max-width: 780px) {
 	.containerGrid {
 		display: grid;
-		grid-template-columns: 75% 20%;
-		grid-template-rows: 10% 80% 10%;
-		column-gap: 20px;
+		grid-template-columns: 1fr;
+		grid-template-rows: 10% 60% 30%;
+		column-gap: 25px;
 		grid-template-areas:
-			". ."
-			"mapside statside"
-			". .";
-	}
-	.PlanesOverallHeader {
-		display: block;
-	}
-
-	.mapSide {
-		grid-area: mapside;
+			"."
+			"mapside"
+			"statside";
 	}
 
 	.statsSide {
 		border-style: solid;
 		border-width: 2px;
 		padding-left: 20px;
+		z-index: 400;
+		margin-top: -180px;
 		border-color: white;
 		border-radius: 25px;
 		grid-area: statside;
 		height: 75vh;
 	}
 
-	.TheMap {
-		opacity: 0.8;
-		border-radius: 25px;
-		height: 75vh;
+	.PlanesOverallHeader {
+		display: none;
 	}
+}
 
-	.planeIcon {
-		color: hsl(120, 60.8%, 50%);
-		transition: 2s;
-	}
-
-	.planeIcon:hover {
-		color: yellow;
-		cursor: pointer;
-	}
-
-	@media screen and (max-width: 780px) {
-		.containerGrid {
-			display: grid;
-			grid-template-columns: 1fr;
-			grid-template-rows: 10% 60% 30%;
-			column-gap: 25px;
-			grid-template-areas:
-				"."
-				"mapside"
-				"statside";
-		}
-
-		.statsSide {
-			border-style: solid;
-			border-width: 2px;
-			padding-left: 20px;
-			z-index: 400;
-			margin-top: -180px;
-			border-color: white;
-			border-radius: 25px;
-			grid-area: statside;
-			height: 75vh;
-		}
-
-		.PlanesOverallHeader {
-			display: none;
-		}
-	}
-
-	body {
-		font-family: monospace;
-		background: linear-gradient(to right, darkblue, blue, lightblue);
-	}
+body {
+	font-family: monospace;
+	background: linear-gradient(to right, darkblue, blue, lightblue);
 }
