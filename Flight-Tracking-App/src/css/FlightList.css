@@ -50,7 +50,7 @@
 	color: black;
 }
 
-@media screen and (max-width: 780px) {
+@media screen and (max-width: 1017px) {
 	.card {
 		z-index: 200;
 		background-color: white;

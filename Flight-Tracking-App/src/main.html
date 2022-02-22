@@ -1,13 +1,11 @@
 
-<div class="containerGrid mt-6 ml-4 mr-4">
-    
-    <h1 class="text-center text-3xl" style="color: white;">
-        The Flight Tracker 
-        <span style="font-family: 'Times New Roman', Times, serif; color: lime;">!</span>
-    </h1>
-    
-    <div class="mapSide">
-        <p class="text-center text-base -mt-6 mb-2 thePlaneTimer" id="theTimer" style="color: white;">
+<div class="grid grid-cols-1 gap-0 lg:gap-5 lg:grid-cols-4 min-h-fit lg:h-screen content-center ml-6 mr-6">
+    <div class="lg:col-span-3 mt-10 z-10">
+        <h1 class="text-3xl text-center mb-4" style="color: white;">
+            The Flight Tracker 
+            <span style="color:lime">!</span>
+        </h1> 
+        <p class="text-center text-base mb-2 thePlaneTimer" id="theTimer" style="color: white;">
             <span class="theTimeDisplay" id="theTime">
             </span> 
             -> Till Auto Update 
@@ -20,7 +18,7 @@
         <div id="map" class="TheMap">
         </div>
     </div>
-    <div class="statsSide">
+    <div class="statsSide lg:mt-24 -mt-28 mb-3 z-50 pl-5">
         <div class="overallPlanes">
             <h1 class = "text-center text-xl mb-4 mt-4" id="PlanesOverall" style="color: white;"></h1>
             <div class="containerFlights">

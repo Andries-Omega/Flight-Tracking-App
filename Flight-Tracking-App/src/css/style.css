@@ -2,31 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-.containerGrid {
-	display: grid;
-	grid-template-columns: 75% 20%;
-	grid-template-rows: 10% 80% 10%;
-	column-gap: 20px;
-	grid-template-areas:
-		". ."
-		"mapside statside"
-		". .";
-}
 .PlanesOverallHeader {
 	display: block;
-}
-
-.mapSide {
-	grid-area: mapside;
 }
 
 .statsSide {
 	border: solid white;
 	border-width: 3px;
-	padding-left: 20px;
 	border-radius: 25px;
-	grid-area: statside;
-	height: 75vh;
 }
 
 .TheMap {
@@ -48,7 +31,7 @@
 	transition: 2s;
 }
 
-@media screen and (max-width: 780px) {
+@media screen and (max-width: 1017px) {
 	.containerGrid {
 		display: grid;
 		grid-template-columns: 1fr;
@@ -63,13 +46,8 @@
 	.statsSide {
 		border-style: solid;
 		border-width: 2px;
-		padding-left: 20px;
-		z-index: 400;
-		margin-top: -180px;
 		border-color: white;
 		border-radius: 25px;
-		grid-area: statside;
-		height: 75vh;
 	}
 
 	.PlanesOverallHeader {
