@@ -1,9 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 .card {
-	z-index: 200;
 	background-color: white;
 	border-radius: 10px;
 	border-bottom-left-radius: 10px;
@@ -13,7 +8,6 @@
 }
 
 .card:hover {
-	z-index: 100;
 	background-color: black;
 	border-radius: 10px;
 	padding-left: 10px;
