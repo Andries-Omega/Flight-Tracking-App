@@ -7,39 +7,42 @@
 			<span class="text-lime">!</span>
 		</h1>
 		<p
-			class="text-center text-base mb-2 thePlaneTimer"
+			class="text-center text-base mb-2 the-plane-timer"
 			id="theTimer"
 			style="color: white"
 		>
 			<span class="text-lime" id="theTime"> </span>
-			-> Till Auto Update
+			=> Till Auto Update
 			<span>
-				<button id="btnResetTimer">
+				<button id="btnResetTimer" title="Reset Timer">
 					<i class="fa-solid fa-arrow-rotate-right text-lime"></i>
 				</button>
 			</span>
 		</p>
-		<div id="map" class="TheMap"></div>
+		<div id="map" class="opacity-80 rounded-[25px] h-[75vh]"></div>
 	</div>
-	<div class="statsSide lg:mt-24 -mt-28 mb-3 z-50 pl-5">
-		<div class="overallPlanes">
+	<div
+		class="border-4 border-white rounded-[25px] lg:mt-24 -mt-28 mb-3 z-50 pl-5"
+	>
+		<!--overall-planes and specific-plane are used for responsiveness(display block or none), and for that reason i prefer they remain untouched-->
+		<div class="overall-planes">
 			<h1
-				class="text-center text-xl mb-4 mt-4 text-white"
+				class="text-center text-xl mb-4 mt-4 text-white hidden lg:block"
 				id="PlanesOverall"
 			></h1>
-			<div class="containerFlights">
+			<div class="w-full h-[67vh] overflow-y-auto rounded-[10px] mt-20 lg:mt-0">
 				<div id="ListOfFlights"></div>
 			</div>
 		</div>
-		<div class="specificPlane">
+		<div class="specific-plane">
 			<h1 class="text-2xl text-center mt-2 mb-4 text-white">
 				Flight: <span id="flightPicked" class="text-lime"></span>
 			</h1>
-			<button id="resumeUpdates" class="btnResume mb-4 self-center">
+			<button id="resumeUpdates" class="btn-resume mb-4 self-center">
 				Resume Updates
 			</button>
-			<div class="containerFlights">
-				<div id="FlightInformation" class="flightInfo"></div>
+			<div class="w-full h-[67vh] overflow-y-auto rounded-[10px]">
+				<div id="FlightInformation" class="text-white lg:text-black"></div>
 			</div>
 		</div>
 	</div>

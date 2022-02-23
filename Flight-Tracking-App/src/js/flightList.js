@@ -39,7 +39,8 @@ export function setPlaneList(theFlight, currentIndex) {
 		flightVelocity
 	);
 
-	allPlanesList.innerHTML += `<div class="card" id="Card-${theFlight[currentIndex][0]}" title="Click To View Plane">
+	allPlanesList.innerHTML += `<div class="card" 
+									id="Card-${theFlight[currentIndex][0]}" title="Click To View Plane">
                                     <h3>Flight ${flightID} </h3>
                                     <p>Origin: ${flightOrigin}</p>
                                     <p>Velocity: ${flightVelocity} m/s</p>

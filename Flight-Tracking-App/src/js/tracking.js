@@ -1,10 +1,9 @@
 import { resumeUpdate } from "./main";
 
-let overalElements = document.querySelectorAll(".overallPlanes");
-let specificElements = document.querySelectorAll(".specificPlane");
-let planeTimers = document.querySelectorAll(".thePlaneTimer");
-let planeTimes = document.querySelectorAll(".theTimeDisplay ");
-let planeIcon = document.querySelectorAll(".planeIcon");
+let overalElements = document.querySelectorAll(".overall-planes");
+let specificElements = document.querySelectorAll(".specific-plane");
+let planeTimers = document.querySelectorAll(".the-plane-timer");
+let planeTimes = document.querySelectorAll("#theTime ");
 
 let countDownInterval;
 export function changeToSpecific(planeData) {
@@ -14,9 +13,7 @@ export function changeToSpecific(planeData) {
 	specificElements.forEach((specificElement) => {
 		specificElement.style.display = "block";
 	});
-	planeIcon.forEach((planeIcon) => {
-		planeIcon.style.fontSize = "x-large";
-	});
+
 	planeTimers.forEach((planeTimer) => {
 		planeTimer.style.display = "block";
 	});

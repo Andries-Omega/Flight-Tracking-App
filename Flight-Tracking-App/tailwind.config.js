@@ -5,6 +5,9 @@ module.exports = {
 			colors: {
 				lime: "#00FF00",
 			},
+			"background-colors": {
+				lime: "#00FF00",
+			},
 		},
 	},
 	plugins: [],

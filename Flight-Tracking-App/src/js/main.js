@@ -3,8 +3,7 @@ import "tailwindcss/tailwind.css";
 
 // The CSS being used
 import "../css/style.css";
-import "../css/flightList.css";
-import "../css/tracking.css";
+
 //the map
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
@@ -87,7 +86,7 @@ function setPlaneOnMap(listOfFlights) {
 				listOfFlights.states[actualLoopCount][10] +
 				'deg); " id="' +
 				listOfFlights.states[actualLoopCount][0] +
-				'" class="fa-solid fa-plane planeIconNoZoom"></i></span>',
+				'" class="fa-solid fa-plane plane-icon-no-zoom"></i></span>',
 			iconSize: [0.5, 0.5],
 		});
 		if (planeLongitude && planeLatitude) {
@@ -151,8 +150,8 @@ export function zoomToPlane(flightID, latitude, longitude, index) {
 	}
 	zoomedInPlane.openPopup();
 	$("#" + flightID)
-		.removeClass("planeIconNoZoom")
-		.addClass("planeIconZoom");
+		.removeClass("plane-icon-no-zoom")
+		.addClass("plane-icon-zoom");
 	map.flyTo([latitude, longitude], 7);
 	activateHover = false;
 }
@@ -188,8 +187,8 @@ document
 export function resumeUpdate() {
 	activateHover = true;
 	$("#" + zoomedInPlaneData[0])
-		.removeClass("planeIconZoom")
-		.addClass("planeIconNoZoom");
+		.removeClass("plane-icon-zoom")
+		.addClass("plane-icon-no-zoom");
 	if (zoomedInPlane) {
 		zoomedInPlane.closePopup();
 	}
