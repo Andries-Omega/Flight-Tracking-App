@@ -61,6 +61,7 @@ function retrieveListOfPlanes() {
 	fetch("https://opensky-network.org/api/states/all")
 		.then((response) => response.json())
 		.then((listOfFlights) => {
+			console.log(listOfFlights);
 			removePlanesOnMap();
 			clearAllFlightsArr();
 			setPlaneOnMap(listOfFlights);
