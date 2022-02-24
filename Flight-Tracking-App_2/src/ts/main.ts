@@ -80,7 +80,7 @@ function setPlaneOnMap(listOfFlights: Flights) {
 
 	while (ensureNumberOfPlanes < 100) {
 		var planeLongitude = listOfFlights?.states[actualLoopCount][5];
-		var planeLatitude = listOfFlights.states[actualLoopCount][6];
+		var planeLatitude = listOfFlights?.states[actualLoopCount][6];
 
 		const planeIcon = L.divIcon({
 			html:
@@ -91,7 +91,11 @@ function setPlaneOnMap(listOfFlights: Flights) {
 				'" class="fa-solid fa-plane plane-icon-no-zoom"></i></span>',
 			iconSize: [0.5, 0.5],
 		});
-		if (planeLongitude && planeLatitude) {
+		if (
+			planeLongitude &&
+			planeLatitude &&
+			listOfFlights?.states[actualLoopCount][0]
+		) {
 			listOfDisplayedPlanes.push(
 				L.marker([planeLatitude, planeLongitude], { icon: planeIcon })
 					.addTo(map)
