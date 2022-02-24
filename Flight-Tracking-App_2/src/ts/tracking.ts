@@ -33,8 +33,7 @@ export function changeToSpecific(planeData: any) {
 	});
 
 	planeTimers.forEach((planeTimer) => {
-		let pT = planeTimer.style;
-		if (planeTimer?.style) planeTimer.style.display = "block";
+		if (planeTimer.style) planeTimer.style.display = "block";
 	});
 	let fP = document.getElementById("flightPicked");
 	if (fP) fP.innerHTML = planeData[1];
