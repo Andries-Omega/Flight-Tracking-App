@@ -1,11 +1,29 @@
 import { resumeUpdate } from "./main";
 
-let overalElements = document.querySelectorAll(".overall-planes");
-let specificElements = document.querySelectorAll(".specific-plane");
-let planeTimers = document.querySelectorAll(".the-plane-timer");
-let planeTimes = document.querySelectorAll("#theTime ");
+/**
+ * Variables declaration
+ */
+let overalElements = document.querySelectorAll<HTMLElement>(".overall-planes");
+let specificElements =
+	document.querySelectorAll<HTMLElement>(".specific-plane");
+let theTime = document.getElementById("theTime");
+let btnResetTimer = document.querySelector("#btnResetTimer");
+let planeTimers = document.querySelectorAll<HTMLElement>(".the-plane-timer");
+let planeTimes = document.querySelectorAll<HTMLElement>("#theTime ");
 
 let countDownInterval: any = null;
+
+/**
+ *
+ * Event listeners
+ */
+
+if (btnResetTimer) btnResetTimer.addEventListener("click", resetTimer);
+
+/**
+ *
+ * Functions
+ */
 export function changeToSpecific(planeData: any) {
 	overalElements.forEach((overalElement) => {
 		if (overalElement.style) overalElement.style.display = "none";
@@ -15,9 +33,11 @@ export function changeToSpecific(planeData: any) {
 	});
 
 	planeTimers.forEach((planeTimer) => {
-		planeTimer.style.display = "block";
+		let pT = planeTimer.style;
+		if (planeTimer?.style) planeTimer.style.display = "block";
 	});
-	document.getElementById("flightPicked").innerHTML = planeData[1];
+	let fP = document.getElementById("flightPicked");
+	if (fP) fP.innerHTML = planeData[1];
 	startCountDown();
 }
 
@@ -63,12 +83,11 @@ function startCountDown() {
 				pTime.style.color = "red";
 			});
 		}
+
 		if (theSecond < 10) {
-			document.getElementById("theTime").innerHTML =
-				"0" + theMinute + ":0" + theSecond;
+			if (theTime) theTime.innerHTML = "0" + theMinute + ":0" + theSecond;
 		} else {
-			document.getElementById("theTime").innerHTML =
-				"0" + theMinute + ":" + theSecond;
+			if (theTime) theTime.innerHTML = "0" + theMinute + ":" + theSecond;
 		}
 	}, 1000);
 }
@@ -76,7 +95,7 @@ function startCountDown() {
 function stopCountDown() {
 	clearInterval(countDownInterval);
 }
-document.querySelector("#btnResetTimer").addEventListener("click", resetTimer);
+
 function resetTimer() {
 	stopCountDown();
 	startCountDown();
