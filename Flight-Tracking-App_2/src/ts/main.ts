@@ -75,12 +75,12 @@ function retrieveListOfPlanes() {
 
 //Set List of first 100 planes on the map
 function setPlaneOnMap(listOfFlights: Flights) {
-	var ensureNumberOfPlanes = 0; //variable to make sure we're getting 100 planes on the map
-	var actualLoopCount = 0;
+	let ensureNumberOfPlanes = 0; //variable to make sure we're getting 100 planes on the map
+	let actualLoopCount = 0;
 
 	while (ensureNumberOfPlanes < 100) {
-		var planeLongitude = listOfFlights?.states[actualLoopCount][5];
-		var planeLatitude = listOfFlights?.states[actualLoopCount][6];
+		let planeLongitude = listOfFlights?.states[actualLoopCount][5];
+		let planeLatitude = listOfFlights?.states[actualLoopCount][6];
 
 		const planeIcon = L.divIcon({
 			html:
