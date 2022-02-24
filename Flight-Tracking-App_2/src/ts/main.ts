@@ -1,6 +1,7 @@
 // Get in tailwind
 import "tailwindcss/tailwind.css";
 
+import { fromEvent } from "rxjs";
 // The CSS being used
 import "../css/style.css";
 
@@ -38,6 +39,11 @@ L.tileLayer(
 	}
 ).addTo(map);
 
+/**
+ * Events
+ */
+
+fromEvent(resumeUpdateBtn, "click").subscribe(resumeUpdate);
 /***
  * Call Functions
  */
@@ -51,8 +57,6 @@ keepUpdatingPlanes();
 /**
  * Get in external event listeners
  */
-
-resumeUpdateBtn?.addEventListener("click", resumeUpdate);
 
 /***
  * Define the funcions
@@ -140,7 +144,7 @@ export function pauseUpdatingPlanes() {
 //add functionality on the planes
 function planeHoveredOrUnhovered() {
 	listOfDisplayedPlanes.forEach((lodp: any, index: number) => {
-		lodp?.on("mouseover", () => {
+		fromEvent(lodp, "mouseover").subscribe(() => {
 			if (activateHover) {
 				zoomedInPlane = lodp;
 				lodp.openPopup();

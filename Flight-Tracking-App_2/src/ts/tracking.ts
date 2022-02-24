@@ -17,6 +17,7 @@ let countDownInterval: any = null;
  *
  * Event listeners
  */
+
 btnResetTimer?.addEventListener("click", resetTimer);
 
 /**
