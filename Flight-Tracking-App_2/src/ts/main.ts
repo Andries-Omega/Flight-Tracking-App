@@ -1,7 +1,7 @@
 // Get in tailwind
 import "tailwindcss/tailwind.css";
 
-import { fromEvent } from "rxjs";
+import { fromEvent, Subject } from "rxjs";
 // The CSS being used
 import "../css/style.css";
 
@@ -29,6 +29,28 @@ let listOfDisplayedPlanes: any = [];
 let listOfDisplayedPlanesData: any = [];
 let planeUpdateInterval: any = null;
 let resumeUpdateBtn: any = document.getElementById("resumeUpdates");
+
+//for time to display the flights observable
+let subject = new Subject();
+
+//subscribe the functions
+subject.subscribe({
+	next: removePlanes,
+});
+subject.subscribe({
+	next: (listOfFlights: any) => {
+		setPlaneOnMap(listOfFlights);
+	},
+});
+subject.subscribe({
+	next: setPlaneList,
+});
+subject.subscribe({
+	next: listCheck,
+});
+subject.subscribe({
+	next: planeHoveredOrUnhovered,
+});
 
 L.tileLayer(
 	"https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png",
@@ -69,8 +91,7 @@ function retrieveListOfPlanes() {
 	fetch("https://opensky-network.org/api/states/all")
 		.then((response) => response.json())
 		.then((listOfFlights) => {
-			removePlanes();
-			setPlaneOnMap(listOfFlights);
+			subject.next(listOfFlights);
 		})
 		//incase there's an error retrieving list of planes
 		.catch((err) => {
@@ -112,9 +133,7 @@ function setPlaneOnMap(listOfFlights: Flights) {
 		"Plane_Data",
 		JSON.stringify(listOfDisplayedPlanesData)
 	);
-	setPlaneList(); //function that will populate list of planes
-	listCheck();
-	planeHoveredOrUnhovered();
+
 	if (!planesOverall) return;
 	planesOverall.innerHTML = `<span style="color: lime">${listOfDisplayedPlanesData.length}</span> Planes`;
 }
