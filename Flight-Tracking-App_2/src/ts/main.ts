@@ -15,6 +15,7 @@ import {
 	setPlaneList,
 } from "./flightList";
 import { changeToOverall, changeToSpecific } from "./tracking";
+import { Flights, JsonResponse } from "../model/flights";
 
 /***
  * Set and create variables
@@ -54,12 +55,11 @@ keepUpdatingPlanes();
 /**
  * Get in external event listeners
  */
-if (resumeUpdateBtn) {
-	resumeUpdateBtn.addEventListener("click", resumeUpdate);
-}
+
+resumeUpdateBtn?.addEventListener("click", resumeUpdate);
 
 //incase mouse is hovered in, then moved out of hover before hove mouse out is activated
-map.addEventListener("mousemove", () => {
+map?.addEventListener("mousemove", () => {
 	console.log(activateHover);
 	if (activateHover && zoomedInPlane) {
 		resetMap();
@@ -88,12 +88,12 @@ function retrieveListOfPlanes() {
 }
 
 //Set List of first 100 planes on the map
-function setPlaneOnMap(listOfFlights: any) {
+function setPlaneOnMap(listOfFlights: Flights) {
 	var ensureNumberOfPlanes = 0; //variable to make sure we're getting 100 planes on the map
 	var actualLoopCount = 0;
 
 	while (ensureNumberOfPlanes < 100) {
-		var planeLongitude = listOfFlights.states[actualLoopCount][5];
+		var planeLongitude = listOfFlights?.states[actualLoopCount][5];
 		var planeLatitude = listOfFlights.states[actualLoopCount][6];
 
 		const planeIcon = L.divIcon({
@@ -149,7 +149,7 @@ export function pauseUpdatingPlanes() {
 //add functionality on the planes
 function planeHoveredOrUnhovered() {
 	listOfDisplayedPlanes.forEach((lodp: any, index: number) => {
-		lodp.on("mouseover", () => {
+		lodp?.on("mouseover", () => {
 			if (activateHover) {
 				zoomedInPlane = lodp;
 				lodp.openPopup();

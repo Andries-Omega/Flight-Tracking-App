@@ -17,8 +17,7 @@ let countDownInterval: any = null;
  *
  * Event listeners
  */
-
-if (btnResetTimer) btnResetTimer.addEventListener("click", resetTimer);
+btnResetTimer?.addEventListener("click", resetTimer);
 
 /**
  *
@@ -69,7 +68,7 @@ function startCountDown() {
 			stopCountDown();
 			resumeUpdate();
 		} else if (!theSecond && theMinute) {
-			//it implies the first minut is over
+			//it implies the first minute is over
 			theMinute--;
 			theSecond = 59;
 			planeTimes.forEach((pTime) => {
