@@ -8,6 +8,7 @@ import "../css/style.css";
 import L from "leaflet";
 
 import "leaflet/dist/leaflet.css";
+
 import { flightPickedOnList, listCheck, setPlaneList } from "./flightList";
 import { changeToOverall, changeToSpecific } from "./tracking";
 import { Flights } from "../model/flights";
@@ -75,38 +76,32 @@ function retrieveListOfPlanes() {
 
 //Set List of first 100 planes on the map
 function setPlaneOnMap(listOfFlights: Flights) {
-	let ensureNumberOfPlanes = 0; //variable to make sure we're getting 100 planes on the map
-	let actualLoopCount = 0;
-
-	while (ensureNumberOfPlanes < 100) {
-		let planeLongitude = listOfFlights?.states[actualLoopCount][5];
-		let planeLatitude = listOfFlights?.states[actualLoopCount][6];
+	for (let flight of listOfFlights.states) {
+		let planeLongitude = flight[5];
+		let planeLatitude = flight[6];
+		let planeDirection = flight[10] || 0;
 
 		const planeIcon = L.divIcon({
 			html:
 				'<span><i style="transform: rotate(' +
-				listOfFlights.states[actualLoopCount][10] +
+				planeDirection +
 				'deg); " id="' +
-				listOfFlights.states[actualLoopCount][0] +
+				flight[0] +
 				'" class="fa-solid fa-plane plane-icon-no-zoom"></i></span>',
 			iconSize: [0.5, 0.5],
 		});
-		if (
-			planeLongitude &&
-			planeLatitude &&
-			listOfFlights?.states[actualLoopCount][0]
-		) {
+		if (planeLongitude && planeLatitude) {
 			listOfDisplayedPlanes.push(
 				L.marker([planeLatitude, planeLongitude], { icon: planeIcon })
 					.addTo(map)
-					.bindPopup("Flight: " + listOfFlights.states[actualLoopCount][1])
+					.bindPopup("Flight: " + flight[1])
 			);
 
-			listOfDisplayedPlanesData.push(listOfFlights.states[actualLoopCount]);
-			ensureNumberOfPlanes++;
+			listOfDisplayedPlanesData.push(flight);
 		}
-
-		actualLoopCount++;
+		if (listOfDisplayedPlanesData.length >= 100) {
+			break;
+		}
 	}
 
 	sessionStorage.setItem(
@@ -117,7 +112,7 @@ function setPlaneOnMap(listOfFlights: Flights) {
 	listCheck();
 	planeHoveredOrUnhovered();
 	if (!planesOverall) return;
-	planesOverall.innerHTML = `<span style="color: lime">${ensureNumberOfPlanes}</span> Planes`;
+	planesOverall.innerHTML = `<span style="color: lime">${listOfDisplayedPlanesData.length}</span> Planes`;
 }
 //To avoid double adding planes we have to remove before updating
 function removePlanes() {
