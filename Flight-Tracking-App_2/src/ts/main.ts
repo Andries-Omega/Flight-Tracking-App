@@ -8,14 +8,9 @@ import "../css/style.css";
 import L from "leaflet";
 
 import "leaflet/dist/leaflet.css";
-import {
-	clearAllFlightsArr,
-	flightPickedOnList,
-	listCheck,
-	setPlaneList,
-} from "./flightList";
+import { flightPickedOnList, listCheck, setPlaneList } from "./flightList";
 import { changeToOverall, changeToSpecific } from "./tracking";
-import { Flights, JsonResponse } from "../model/flights";
+import { Flights } from "../model/flights";
 
 /***
  * Set and create variables
@@ -58,14 +53,6 @@ keepUpdatingPlanes();
 
 resumeUpdateBtn?.addEventListener("click", resumeUpdate);
 
-//incase mouse is hovered in, then moved out of hover before hove mouse out is activated
-map?.addEventListener("mousemove", () => {
-	console.log(activateHover);
-	if (activateHover && zoomedInPlane) {
-		resetMap();
-	}
-});
-
 /***
  * Define the funcions
  */
@@ -77,8 +64,7 @@ function retrieveListOfPlanes() {
 	fetch("https://opensky-network.org/api/states/all")
 		.then((response) => response.json())
 		.then((listOfFlights) => {
-			removePlanesOnMap();
-			clearAllFlightsArr();
+			removePlanes();
 			setPlaneOnMap(listOfFlights);
 		})
 		//incase there's an error retrieving list of planes
@@ -114,22 +100,28 @@ function setPlaneOnMap(listOfFlights: Flights) {
 
 			listOfDisplayedPlanesData.push(listOfFlights.states[actualLoopCount]);
 			ensureNumberOfPlanes++;
-
-			setPlaneList(listOfFlights.states, actualLoopCount); //function that will populate list of planes
 		}
 
 		actualLoopCount++;
 	}
+
+	sessionStorage.setItem(
+		"Plane_Data",
+		JSON.stringify(listOfDisplayedPlanesData)
+	);
+	setPlaneList(); //function that will populate list of planes
 	listCheck();
 	planeHoveredOrUnhovered();
 	if (!planesOverall) return;
 	planesOverall.innerHTML = `<span style="color: lime">${ensureNumberOfPlanes}</span> Planes`;
 }
 //To avoid double adding planes we have to remove before updating
-function removePlanesOnMap() {
+function removePlanes() {
 	listOfDisplayedPlanes.forEach((lodp: any) => {
 		map.removeLayer(lodp);
 	});
+	listOfDisplayedPlanesData = [];
+	sessionStorage.removeItem("Plane_Data");
 	if (!allPlanesList) return;
 	allPlanesList.innerHTML = ``;
 }

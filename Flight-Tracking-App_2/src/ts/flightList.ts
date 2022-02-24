@@ -2,10 +2,9 @@ import { pauseUpdatingPlanes, setFlightZoomed, zoomToPlane } from "./main";
 import { changeToSpecific } from "./tracking";
 
 var allPlanesList = document.getElementById("ListOfFlights");
-var allPlanesListArr: any = [];
 var flightPickedInfo = document.getElementById("FlightInformation");
 
-function climbinOrDesc(VerticalRate: number, Velocity: any) {
+function climbinOrDesc(VerticalRate: any, Velocity: any) {
 	let cOrD = "";
 	if (VerticalRate == null || VerticalRate == undefined) {
 		cOrD = "Unknown";
@@ -28,30 +27,31 @@ function climbinOrDesc(VerticalRate: number, Velocity: any) {
 }
 
 //adding list of planes and their data
-export function setPlaneList(theFlight: any, currentIndex: number) {
-	let flightID = theFlight[currentIndex][1] || theFlight[currentIndex][0];
-	let flightOrigin = theFlight[currentIndex][2] || "Unknown";
-	let flightVelocity = theFlight[currentIndex][9] || "Unknown";
-	let climbingOrDescending = "";
+export function setPlaneList() {
+	let theFlights = JSON.parse(sessionStorage.getItem("Plane_Data") || "");
+	if (theFlights)
+		theFlights.forEach((theFlight: any) => {
+			let flightID = theFlight[1] || theFlight[0];
+			let flightOrigin = theFlight[2] || "Unknown";
+			let flightVelocity = theFlight[9] || "Unknown";
+			let climbingOrDescending = "";
 
-	climbingOrDescending = climbinOrDesc(
-		theFlight[currentIndex][11],
-		flightVelocity
-	);
-	if (!allPlanesList) return; //there's no need to add flight data in an array of flights if it is not on the card
-	allPlanesList.innerHTML += `<div class="card" 
-									id="Card-${theFlight[currentIndex][0]}" title="Click To View Plane">
-                                    <h3>Flight ${flightID} </h3>
-                                    <p>Origin: ${flightOrigin}</p>
-                                    <p>Velocity: ${flightVelocity} m/s</p>
-                                    <p>Position: ${climbingOrDescending}</p>
-                                </div>`;
-	allPlanesListArr.push(theFlight[currentIndex]); //store list of flights data so we can view them when they click
+			climbingOrDescending = climbinOrDesc(theFlight[11], flightVelocity);
+			if (!allPlanesList) return; //there's no need to add flight data in an array of flights if it is not on the card
+			allPlanesList.innerHTML += `<div class="card" 
+											id="Card-${theFlight[0]}" title="Click To View Plane">
+											<h3>Flight ${flightID} </h3>
+											<p>Origin: ${flightOrigin}</p>
+											<p>Velocity: ${flightVelocity} m/s</p>
+											<p>Position: ${climbingOrDescending}</p>
+										</div>`;
+		});
 }
 
 //function to container an event lister for cards
 export function listCheck() {
-	allPlanesListArr.forEach((pla: any, index: number) => {
+	let theFlights = JSON.parse(sessionStorage.getItem("Plane_Data") || "");
+	theFlights.forEach((pla: any, index: number) => {
 		if (pla[0]) {
 			let theCard = document.getElementById("Card-" + pla[0]);
 			if (theCard)
@@ -113,11 +113,5 @@ export function flightPickedOnList(flightPicked: any, index: number) {
 	} else {
 		if (!flightPickedInfo) return;
 		flightPickedInfo.innerHTML = `<h1 style="color:red;">Flight Info Not Found</h1>`;
-	}
-}
-
-export function clearAllFlightsArr() {
-	if (allPlanesListArr) {
-		allPlanesListArr = [];
 	}
 }
